@@ -1,4 +1,15 @@
-# bl_app_dbb_DisSeg
+<h1 align="center">DBB_DiceScore</h1>
+
+<p align="center">
+  Computes the Dice similarity coefficient (DSC) between two segmentations (parcellations)
+</p>
+
+<p align="center">
+  <a href="https://github.com/brainlife/abcd-spec"><img src="https://img.shields.io/badge/ABCD_Spec-v1.1-green.svg" alt="ABCD Spec v1.1"></a>
+  <a href="https://doi.org/10.25663/brainlife.app.579"><img src="https://img.shields.io/badge/Brainlife-brainlife.app.579-blue.svg" alt="Run on brainlife.io"></a>
+</p>
+
+## At a glance
 
 <!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
 
@@ -8,138 +19,58 @@ Compares a computed segmentation with a ground-truth segmentation label by label
 
 | | |
 |---|---|
-| 📥 **Inputs** | `neuro/parcellation/volume` ×2 |
-| 📤 **Outputs** | `raw` |
-| 🐳 **Container** | `gamorosino/bl_app_dbb_disseg` |
-| ⚙️ **Resources** | 1 CPUs · 0.25 h walltime |
-| 🔗 **Run it** | [doi.org/10.25663/brainlife.app.579](https://doi.org/10.25663/brainlife.app.579) |
+| **Inputs** | `neuro/parcellation/volume` ×2 |
+| **Outputs** | `raw` |
+| **Container** | `gamorosino/bl_app_dbb_disseg` |
+| **Resources** | 1 CPUs · 0.25 h walltime |
+| **Run it** | [doi.org/10.25663/brainlife.app.579](https://doi.org/10.25663/brainlife.app.579) |
 
-#### 📥 Inputs
+#### Inputs
 
 | Input | Datatype | Required | Description |
 |---|---|---|---|
 | `computed` | `neuro/parcellation/volume` | yes | Segmentation (parcellation volume) produced by the method under evaluation. Same voxel grid and label values as the ground truth. |
 | `groud_truth` | `neuro/parcellation/volume` | yes | Reference (ground-truth) segmentation volume. Same voxel grid and label values as the computed segmentation. |
 
-#### 📤 Outputs
+#### Outputs
 
 | Output | Datatype | Description |
 |---|---|---|
 | `dice_score` | `raw` | dice_score.txt with the Dice score of each label, space-separated and sorted by label value. |
 
-📚 **References used by this App:**
-- Amorosino G, Peruzzo D, Redaelli D, Olivetti E, Arrigoni F, Avesani P. DBB - A Distorted Brain Benchmark for Automatic Tissue Segmentation in Paediatric Patients. NeuroImage 119486 (2022). [doi:10.1016/j.neuroimage.2022.119486](https://doi.org/10.1016/j.neuroimage.2022.119486)
-
 <!-- brainlife-app:end -->
 
-This application computes the Dice similarity coefficient (DSC) between two segmentation volumes (parcellations)
+## Running the App
 
-### Author
+### On brainlife.io
 
-    Gabriele Amorosino (gamorosino@fbk.eu)
+Open the App at [doi.org/10.25663/brainlife.app.579](https://doi.org/10.25663/brainlife.app.579), choose `neuro/parcellation/volume`, `neuro/parcellation/volume` from your project and press **Execute**. The results are saved to your project as `raw`.
 
-    
-### Citation
+### Locally
 
-If you use this code for your research please cite:
+You need [Singularity/Apptainer](https://apptainer.org/) (the App runs in `gamorosino/bl_app_dbb_disseg`), [`jq`](https://jqlang.github.io/jq/).
 
-```
-Gabriele Amorosino, Denis Peruzzo, Daniela Redaelli, Emanuele Olivetti, Filippo Arrigoni, Paolo Avesani,
-DBB - A Distorted Brain Benchmark for Automatic Tissue Segmentation in Paediatric Patients,
-NeuroImage, 2022, 119486, ISSN 1053-8119, https://doi.org/10.1016/j.neuroimage.2022.119486.
-```
+1. Clone this repository.
+2. Create `config.json` with the paths to your inputs and the parameters:
 
+   ```json
+   {
+       "computed": "/path/to/computed/computed",
+       "groud_truth": "/path/to/groud_truth/groud_truth"
+   }
+   ```
 
-## Running the Brainlife App
+3. Run `./main`.
 
+## Citing
 
-You can run the BrainLife App `DBB_DiceScore` on the brainlife.io platform via the web user interface (UI) or using the `brainlife CLI`.  With both of these two solutions, the inputs and outputs are stored on the brainlife.io platform, under the specified project, and the computations are performed using the brainlife.io cloud computing resources.
+If you use this App, please cite it, the software it builds on and brainlife.io:
 
+- DBB_DiceScore. brainlife.io App. [doi:10.25663/brainlife.app.579](https://doi.org/10.25663/brainlife.app.579)
+- Amorosino G, Peruzzo D, Redaelli D, Olivetti E, Arrigoni F, Avesani P. DBB - A Distorted Brain Benchmark for Automatic Tissue Segmentation in Paediatric Patients. NeuroImage 119486 (2022). [doi:10.1016/j.neuroimage.2022.119486](https://doi.org/10.1016/j.neuroimage.2022.119486)
+- Hayashi S, Caron BA, Heinsfeld AS, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. *Nature Methods* 21:809–813 (2024). [doi:10.1038/s41592-024-02237-2](https://doi.org/10.1038/s41592-024-02237-2)
+- Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. *Scientific Data* 6:69 (2019). [doi:10.1038/s41597-019-0073-y](https://doi.org/10.1038/s41597-019-0073-y)
 
-### On Brainlife.io via UI
+## Authors
 
-You can see _DBB_DiceScore_ currently registered on Brainlife. Find the App on _brainlife.io_ and click "Execute" tab and specify dataset e.g. "DBB Distorted Brain Benchmark".
-
-### On Brainlife.io using CLI
-
-Brainlife CLI could be installed on UNIX/Linux-based system following the instruction reported in https://brainlife.io/docs/cli/install/.
-
-you can run the App with CLI as follow:
-```
-bl app run --id   --project <project_id> --input computed:<parc_object_id> --input ground_truth:<parc_object_id> 
-```
-the output is stored in the reference project specified with the id ```<project_id>```. You can retrieve the _object_id_ using the command ```bl data query```, e.g to get the id of the segmentation volume files for the subject _0001_ :
-```
-bl data query --subject 0001 --datatype "neuro/parcellation/volume"  --project <projectid>
-```
-
-If not present yet, you can upload a new file in a project using ```bl data upload```. For example, in the case of the segmentation volume, for the subject 0001 you can run:
-```
-bl data upload --project <project_id> --subject 0001 --datatype "neuro/parcellation/volume" --t1 <full_path> --tag "computed"
-
-```
-## Running the code locally
-
-You can run the code on your local machine by git cloning this repository. You can choose to run it with _dockers_, avoiding to install any software except for [singularity](https://sylabs.io/). Furthermore, you can run the original script using local software installed.
-
-### Run the script using the dockers (recommended)
-
-It is possible to run the app locally, using the dockers that embedded all needed software. This is exactly the same way that apps run code on brainlife.io
-
-Inside the cloned directory, create `config.json` with something like the following content with the fullpaths to your local input files:
-```
-{   
-    "computed": "./segmentation.nii.gz",
-    "ground_truth": "./parc.nii.gz"
-}
-```
-
-Launch the app by executing `main`.
-```
-./main
-```
-To avoid using the config file, you can input directly the fullpath of the filess using the script ```main.sh```:
-
-```
-main.sh <computed.ext> <ground_truth.ext> [<output.txt>]
-```
-
-#### Script Dependecies
-
-The App needs   `singularity` to run.
-
-#### Output
-
-The output of bl_app_dbb_DisSeg is a _.txt_ file, reporting the dice score of each label separated but a space and sort as the labels value. The file is stored in the working directory.
-
-
-### Run the script (local installed softwares) 
-
-Clone this repository using git on your local machine to run this script.
-
-### Usage
-
-
-```
-
-main_local.sh <computed.ext> <ground_truth.ext> [<output.txt>]
-
-```
-
-#### Output
-
-The output of bl_app_dbb_DisSeg is a _.txt_ file, reporting the dice score of each label separated but a space and sort as the labels value. The file is stored in the working directory.
-
-
-####  Script Dependecies
-
-It is necessary that Python 2.7.x is installed, with the following modules:
-
-* nibabel=2.5.1 
-* numpy
-
-It is suggested to install python modules using conda. 
-```
-conda  conda install -c conda-forge nibabel=2.5.1 \
-      && conda install numpy
-```
+Gabriele Amorosino
